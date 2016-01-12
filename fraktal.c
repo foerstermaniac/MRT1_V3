@@ -63,8 +63,36 @@ int getItera(tComplex c, tComplex z, tParam p){
 
 /*--- Interne Funktion: Farbwert bestimmen ---------------------------------*/
 
+tColor getColorValue(tParam p, int i){
+	if (i > p.imax) return 0;
+	else return i%16;
+}
 
 /*--- Fraktal-Figur analysieren und zeichnen -------------------------------*/
 
+void fraktal(tComplex z, tComplex c, tParam p){
+	double dx = (p.xmax-p.xmin)/(double)(p.xpoints);
+	double dy = (p.ymax-p.ymin)/(double)(p.ypoints);
+	if(p.ftype == apfel){
+		for(double x=p.xmin; x<=p.xmax; x+=dx){
+			for(double y=p.ymin; y<=p.ymin; y+=dy){
+				tComplex cn = {x, y};
+				LockScreen();
+				setPoint(x, y, getColorValue(p, getItera(cn, z, p)));
+				UnlockScreen();
+			}
+		}
+	}
+	else if(p.ftype == julia){
+		for(double x=p.xmin; x<=p.xmax; x+=dx){
+			for(double y=p.ymin; y<=p.ymin; y+=dy){
+				tComplex zn = {x, y};
+				LockScreen();
+				setPoint(x, y, getColorValue(p, getItera(c, zn, p)));
+				UnlockScreen();
+			}
+		}
+	}
+}
 
 /* v3_frakt.c */
