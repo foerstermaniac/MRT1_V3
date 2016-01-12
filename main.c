@@ -13,9 +13,27 @@
 #include "dialog.h"
 #include <stdio.h>
 
+typedef enum fracType {
+	apfel,
+	julia
+}fracType;
+typedef struct {
+	double radius;
+	int imax;
+	fracType ftype;
+	double xmin, xmax, ymin, ymax;
+	int xpoints, ypoints;
+} tParam;
+
+typedef struct {
+	double x, y;
+} tComplex;
+
 int main (void)
 {
 	/*--- Variablendeklaration ---------------------------------------------*/
+
+
 
   	/*--- Initialwerte -----------------------------------------------------*/
 
