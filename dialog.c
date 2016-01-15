@@ -14,7 +14,7 @@
 
 /*--- Definitionen ---------------------------------------------------------*/
 
-enum bool {FALSE, TRUE};
+enum bool {FALSE, TRUE};			//Kann mir jemand sagen, warum ich das hierhin geschrieben habe? :'D
 
 
 /*--- Tastatureingabe lesen und nur ersten Character beachten --------------*/
@@ -54,6 +54,13 @@ void DisplayParam(tParam *p, tComplex *c){
 	printf("Das Analysegebiet hat %dx%d Linien.\n", p->xpoints, p->ypoints);
 	printf("c beträgt: %lf+j(%lf).\n", c->x, c->y);
 }
+
+/*	Hier muss ich eingestehen, dass ich selbst nicht ganz sicher bin,
+ * 	ob die Konstruktionen die ich da gebastelt habe immer so funktionieren
+ * 	wie sie sollen.
+ * 	Ihr könnt auch gerne jeden Wert einzeln abfragen: fühlt sich dann halt
+ * 	nicht so schön an.
+ */
 
 void ChangeParam(tParam *p, tComplex *c){
 	int flag = 1;
@@ -111,6 +118,10 @@ void ChangeParam(tParam *p, tComplex *c){
 	}
 }
 
+/*	Hat noch jemand Ideen was es noch so für Fehleingaben geben könnte?
+ * 	Dann immer her damit!!!
+ */
+
 int validation(tParam *p, tComplex *c){
 #define ERROR printf("Das ist Quatsch! Bitte nochmal überprüfen."); return 0;
 	if(p->radius <= 0) ERROR;
@@ -120,18 +131,33 @@ int validation(tParam *p, tComplex *c){
 	return 1;
 }
 
-/*--- Parameter Dialog ------------------------------------------------------*/
+/*--- Parameter Dialog ------------------------------------------------------
+ * 	Wichtig bei der ganzen Parameteränderungs-geschichte ist, dass man immer
+ * 	Zeiger auf die Parameter weiter gibt. Sonst würde man die ja nur in der
+ * 	Funktion änden.
+ *
+ *
+ * 	Noch einen kleine Denkaufgabe / ein Syntaxhinweis:
+ *
+ * 	wenn ich einen Zeiger auf eine Struktur übergebe (in unserem Fall auf p),
+ * 	muss ich diesen später dereferenzieren um an den Inhalt zu kommen. Wie?
+ * 	*p.imax wäre falsch. (siehe Rangfolge: . hat größere Priorität als *)
+ * 	(*p).imax wäre richtig, aber zu umständlich.
+ * 	p->imax entspricht (*p).imax und ist wunderbar einfach.
+ * 	Will man die Adresse von solch einem Element haben,
+ * 	nutzt man einfach &p->imax.
+ */
 
 int ParamDialog(tParam *p, tComplex *c){
-	//if failure: 0
-	//else 1
+										//if failure: 0
+										//else 1
 	DisplayParam(p, c);
 	printf("Sollen Parameter geändert werden?\n(j) Ja, bitte.\n(n) Nein, danke.\n(e) Programm beenden!");
 	switch (InputChar()){
 	case 'j':
 		do {
-			ChangeParam(p, c);
-		} while(validation(p,c) == 0);
+			ChangeParam(p, c);			//Vllt sollte man eine maxAnzahl an Versuchen in Erwähgung ziehen?
+		} while(validation(p,c) == 0);	//Schleife wird erst verlassen, wenn Werte Sinn machen.
 		return 1;
 		break;
 	case 'n':
