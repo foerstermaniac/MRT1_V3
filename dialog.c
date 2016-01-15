@@ -82,7 +82,7 @@ void ChangeParam(tParam *p, tComplex *c){
 	case 3:
 		printf("Der alte Fraktaltyp ist %d. Bitte gib einen neuen ein.\n", p->ftype);
 		printf("Tipp: 0 - Apfel, 1- Julia\n");
-		if (InputChar() == '0') p->ftype=apfel; else if (InputChar() == '1') p->ftype=julia; else error();
+		if (InputChar() == '0') p->ftype=apfel; else if (InputChar() == '1') p->ftype=julia; else ;
 		break;
 	case 4:
 		printf("Das alte Analysegebiet: %lf<=x<=%lf; %lf<=y<=%lf. Bitte gib ein neues ein.\n", p->xmin, p->xmax, p->ymin, p->ymax);

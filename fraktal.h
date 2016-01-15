@@ -34,6 +34,8 @@ typedef struct {
 
 /*--- Fraktal analysieren und grafisch darstellen --------------------------*/
 
+void fraktal(tComplex *z, tComplex *c, tParam *p);
+
 #endif
 
 /* v3_frakt.h */

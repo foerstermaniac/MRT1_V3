@@ -18,6 +18,9 @@
 int main (void)
 {
 	/*--- Variablendeklaration ---------------------------------------------*/
+	tParam p = {4, 75, apfel, -2, 2, -2, 2, 640, 480};
+	tComplex c = {0.4, 0.4};
+	tComplex z = {0, 0};
 
 
 
@@ -26,14 +29,13 @@ int main (void)
   	/*----------------------------------------------------------------------*/
   	/*--- Parameter über Dialog abfragen                                  --*/
   	/*----------------------------------------------------------------------*/
-
-
-    InitGraph (/*xmin, xmax, ymin, ymax übergeben*/); 	// Initialisierung der Grafik
-    
-    LockScreen(); // Bildschirm muss zum Setzen von Pixeln gesperrt sein
+	ParamDialog(&p, &c);
+	InitGraph (p.xmin, p.xmax, p.ymin, p.ymax);			// Initialisierung der Grafik
+    LockScreen();										// Bildschirm muss zum Setzen von Pixeln gesperrt sein
   	/*----------------------------------------------------------------------*/
   	/*--- Fraktale berechnen und ausgeben                                 --*/
   	/*----------------------------------------------------------------------*/
+    fraktal(&c, &z, &p);
     UnlockScreen(); // Alle Änderungen auf Bildschirm ausgeben
     
     /*Aufrufen von InputChar() um das Programm nach dem öffnen der Graphik   */
