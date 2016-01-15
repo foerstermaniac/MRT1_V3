@@ -11,24 +11,10 @@
 #include "fraktal.h"
 #include "graphic.h"
 #include <math.h>
-typedef enum fracType {
-	apfel,
-	julia
-}fracType;
-typedef struct {
-	double radius;
-	int imax;
-	fracType ftype;
-	double xmin, xmax, ymin, ymax;
-	int xpoints, ypoints;
-} tParam;
 
-typedef struct {
-	double x, y;
-} tComplex;
 
 double getAbsolute(tComplex z){
-	return sqrt((z.x+z.x)+(z.y+z.y));
+	return sqrt((z.x*z.x)+(z.y*z.y));
 }
 
 double getDistance(tComplex a, tComplex b){
@@ -44,11 +30,12 @@ int getItera(tComplex c, tComplex z, tParam p){
 	tComplex mitte;
 	tComplex znew;
 	tComplex zold;
-	double distance = 0;
 	int i = 0;
 
 	if(p.ftype == apfel) mitte = z;
 	if(p.ftype == julia) mitte = c;
+
+	double distance = getDistance(mitte, z);
 	zold = z;
 	while((distance <= p.radius)&&(i < p.imax)){
 		znew.x = c.x + (zold.x * zold.x) - (zold.y * zold.y);
@@ -77,9 +64,7 @@ void fraktal(tComplex z, tComplex c, tParam p){
 		for(double x=p.xmin; x<=p.xmax; x+=dx){
 			for(double y=p.ymin; y<=p.ymin; y+=dy){
 				tComplex cn = {x, y};
-				LockScreen();
 				setPoint(x, y, getColorValue(p, getItera(cn, z, p)));
-				UnlockScreen();
 			}
 		}
 	}
@@ -87,9 +72,7 @@ void fraktal(tComplex z, tComplex c, tParam p){
 		for(double x=p.xmin; x<=p.xmax; x+=dx){
 			for(double y=p.ymin; y<=p.ymin; y+=dy){
 				tComplex zn = {x, y};
-				LockScreen();
 				setPoint(x, y, getColorValue(p, getItera(c, zn, p)));
-				UnlockScreen();
 			}
 		}
 	}

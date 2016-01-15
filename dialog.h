@@ -13,7 +13,10 @@
 
 #include "fraktal.h"
 
+
 /*--- Parameter Dialog Prototyp --------------------------------------------*/
+
+int ParamDialog(tParam *p, tComplex *c);
 
 /*--- Funktion zum einlesen des ersten Characters einer getchar() Eingabe --*/
 char InputChar();
