@@ -28,7 +28,7 @@ all: MRT1_V3
 MRT1_V3: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MacOS X C Linker'
-	gcc  -o "MRT1_V3" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -L/usr/local/Cellar/sdl/1.2.15 -o "MRT1_V3" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

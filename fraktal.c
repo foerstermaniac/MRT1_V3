@@ -27,7 +27,7 @@ double getDistance(tComplex *a, tComplex *b){
 /*--- Interne Funktion: Analyse der Iterationsanzahl -----------------------*/
 
 int getItera(tComplex *c, tComplex *z, tParam *p){
-	tComplex mitte;
+	tComplex *mitte;
 	tComplex znew;
 	tComplex zold;
 	int i = 0;
@@ -41,7 +41,7 @@ int getItera(tComplex *c, tComplex *z, tParam *p){
 		znew.x = c->x + (zold.x * zold.x) - (zold.y * zold.y);
 		znew.y = c->y + (2 * zold.x * zold.y);
 		zold = znew;
-		distance = getDistance(mitte, znew);
+		distance = getDistance(mitte, &znew);
 		i++;
 	}
 	return i;
@@ -62,7 +62,7 @@ void fraktal(tComplex *z, tComplex *c, tParam *p){
 	double dy = (p->ymax-p->ymin)/(double)(p->ypoints);
 	if(p->ftype == apfel){
 		for(double x=p->xmin; x<=p->xmax; x+=dx){
-			for(double y=p->ymin; y<=p->ymin; y+=dy){
+			for(double y=p->ymin; y<=p->ymax; y+=dy){
 				tComplex cn = {x, y};
 				setPoint(x, y, getColorValue(p, getItera(&cn, z, p)));
 			}

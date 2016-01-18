@@ -15,7 +15,8 @@
 
 
 
-int main (void)
+//int main (void)
+int main(int argc, char* argv[])
 {
 	/*--- Variablendeklaration ---------------------------------------------*/
 	tParam p = {4, 75, apfel, -2, 2, -2, 2, 640, 480};

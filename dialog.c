@@ -167,6 +167,7 @@ int ParamDialog(tParam *p, tComplex *c){
 		return 0;
 		break;
 	}
+	return 0;
 }
 
 
